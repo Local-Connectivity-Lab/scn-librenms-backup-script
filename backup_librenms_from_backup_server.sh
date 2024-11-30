@@ -14,7 +14,7 @@ backup_folder_folder=$BACKUP_FOLDER/$(date +%s)
 
 mkdir $backup_folder_folder
 cd ansible
-source venv/bin/activate
+source .venv/bin/activate
 ansible-playbook -i inventory.ini playbook.yml -e MYSQL_PASSWORD="$MYSQL_PASSWORD" -e BACKUP_FOLDER="$backup_folder_folder"
 deactivate
 cd ..
