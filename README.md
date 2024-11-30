@@ -8,4 +8,4 @@ You also need to pass the password in as an env var to the script as `MYSQL_PASS
 
 You also need to pass the backup folder in as an env var: `BACKUP_FOLDER`.
 
-You also need to have created a venv called `venv` inside of the ansible folder and installed the requirements.txt
+You also need to have created a venv called `.venv` inside of the ansible folder and installed the requirements.txt
