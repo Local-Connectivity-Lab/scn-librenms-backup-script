@@ -28,7 +28,7 @@
     - name: Dump the librenms database to a file inside the librenms db docker container
       community.docker.docker_container_exec:
         container: "{{ db_container }}"
-        command: "sh -c 'mysqldump librenms -u librenms --password={{ MYSQL_PASSWORD }} > {{ sqldump }}'"
+        command: "sh -c 'mariadb-dump librenms -u librenms --password={{ MYSQL_PASSWORD }} > {{ sqldump }}'"
 
     - name: Copy librenms database dump from the db docker container to the librenms server
       shell: docker cp {{ db_container }}:{{ sqldump }} {{ sqldump }}
