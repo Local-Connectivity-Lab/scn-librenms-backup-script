@@ -1,6 +1,9 @@
 set -euox
 set pipefail
 
+CURR_DATE=$(date +"%Y-%m-%d")
+echo "Current date: $CURR_DATE"
+
 if [ -z "${SAS_TOKEN}" ]; then
   echo "Error: Environment variable SAS_TOKEN is not set or is empty."
   exit 1
@@ -11,7 +14,7 @@ if [ -z "${SQL_PASSWORD}" ]; then
   exit 1                                                                 
 fi
 
-docker exec -it librenms_db mariadb-dump librenms -u librenms --password=$SQL_PASSWORD > /root/sqldump.sql
+docker exec librenms_db mariadb-dump librenms -u librenms --password=$SQL_PASSWORD > /root/sqldump.sql
 
 cd /root/librenms_deployment3/compose/librenms/
 tar -cf /root/rrd.tar rrd
@@ -26,7 +29,7 @@ rm rrd.tar.zst
 storage_account_name="scnbackups"
 container_name="librenms-backup"
 file_path="/root/backup_package.tar"
-blob_name="backup_$(date +"%Y-%m-%d").tar"
+blob_name="backup_${CURR_DATE}.tar"
 
 # Construct the URL for the blob storage
 url="https://${storage_account_name}.blob.core.windows.net/${container_name}/${blob_name}?${SAS_TOKEN}"
@@ -39,4 +42,3 @@ curl -X PUT -T "${file_path}" "${url}" \
 echo "File uploaded successfully."
 
 rm $file_path
-
