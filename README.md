@@ -8,11 +8,12 @@ example:
 
 For the SAS token, I got it by going to the `scnbackups` storage account, in the left pannel under `Security + networking` go to `Shared access signature`. [link](https://portal.azure.com/#@seattlecommunitynetwork.onmicrosoft.com/resource/subscriptions/7f3f600b-c0c2-4c35-bf3a-e0b1cadfce71/resourceGroups/othello/providers/Microsoft.Storage/storageAccounts/scnbackups/sas) There you can create a shared access signature.
 - I think for `Allowed services` you only need to have `Blob` checked
-- I think for the allowed resource types you just need to select object
-- I think for the allowed permissions you just need to  put `Write`
-- You should be able to put the allowed IPs
-- You can disable deletion of versions
+- I think for the `Allowed resource types` you just need to select object
+- I think for the `Allowed permissions` you need to put `Write` and `Create`
+- For `Blob versioning permissions` you can put that as unchecked
+- For `Allowed blob index permissions` you just need to check `Read/Write` and leave `Filter` unchecked
 - Set the expiration date and time to some time you are comfortable with and create a new one when it expires
+- For allowed IPs, if you know the IP it is coming from I guess you can set it
 
 When you generate it there is a field called `SAS token`
 
