@@ -1,4 +1,4 @@
-Backs up librenms to azure. It is meant to run from the librenms server
+Backs up librenms to azure. It is meant to run from the librenms server. Currently the sh script runs on ash, I did not try it on bash
 
 example:
 `SAS_TOKEN=<token> SQL_PASSWORD=<password> /path/to/backup.sh >> /var/log/librenms_backup.log 2>&1`
