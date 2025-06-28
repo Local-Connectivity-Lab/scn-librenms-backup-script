@@ -72,7 +72,7 @@ blob_name="backup_${CURR_DATE}.tar"
 url="https://${storage_account_name}.blob.core.windows.net/${container_name}/${blob_name}?${SAS_TOKEN}"
 
 # Use curl to upload the file
-curl -X PUT -T "${file_path}" "${url}" \
+curl -f -X PUT -T "${file_path}" "${url}" \
   -H "x-ms-blob-type: BlockBlob" \
   -H "Content-Type: application/octet-stream"
 
