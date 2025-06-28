@@ -1,16 +1,27 @@
-set -euox
-set pipefail
+set -eux
+set -o pipefail
 
 CURR_DATE=$(date +"%Y-%m-%d")
 echo "Current date: $CURR_DATE"
 
+# Note this SAS token expires on April 1 2027. You will need to create a new one then or backups will fail
+if [ -z "${SAS_TOKEN_FILE:-}" ]; then
+  echo "Error: Environment variable SAS_TOKEN_FILE is not set"
+  exit 1
+fi
+SAS_TOKEN=$(cat $SAS_TOKEN_FILE)
 if [ -z "${SAS_TOKEN}" ]; then
-  echo "Error: Environment variable SAS_TOKEN is not set or is empty."
+  echo "Error: Is the SAS_TOKEN_FILE file empty?"
   exit 1
 fi
 
-if [ -z "${SQL_PASSWORD}" ]; then                                                                                   
-  echo "Error: Environment variable SQL_PASSWORD is not set or is empty."                                           
+if [ -z "${SQL_PASSWORD_FILE:-}" ]; then
+  echo "Error: Environment variable SQL_PASSWORD_FILE is not set"              
+  exit 1
+fi
+SQL_PASSWORD=$(cat $SQL_PASSWORD_FILE)
+if [ -z "${SQL_PASSWORD}" ]; then     
+  echo "Error: Is the SQL_PASSWORD_FILE file empty?"                          
   exit 1                                                                 
 fi
 
