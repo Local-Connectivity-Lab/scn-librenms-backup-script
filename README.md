@@ -9,7 +9,7 @@ example:
 - Set `SAS_TOKEN_FILE` to the path of a file containing the sas token of the credentials you are using to upload to azure
 - Set `SQL_PASSWORD_FILE` to the path of a file containing the password of the mariadb database. It is in vaultwarden
 
-You also need to add the backup_compose.yml to the same compose directory as the compose.yml for the service for this to work.
+You also need to add the `backup_compose.yml` to the same compose directory as the compose.yml for the service for this to work.
 
 ## Getting a SAS token
 
