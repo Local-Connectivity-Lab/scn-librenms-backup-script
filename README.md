@@ -1,11 +1,17 @@
 Backs up librenms to azure. It is meant to run from the librenms server. Currently the sh script runs on ash, I did not try it on bash
 
+## Running
+
 example:
 `WEBHOOK_URL_FILE=<webhook_url_file> SAS_TOKEN_FILE=<token_file> SQL_PASSWORD_FILE=<password_file> /path/to/backup.sh >> /var/log/librenms_backup.log 2>&1`
 
 - Set `WEBHOOK_URL_FILE` to the path of a file containing the discord webhook url to report backup status
 - Set `SAS_TOKEN_FILE` to the path of a file containing the sas token of the credentials you are using to upload to azure
 - Set `SQL_PASSWORD_FILE` to the path of a file containing the password of the mariadb database. It is in vaultwarden
+
+You also need to add the backup_compose.yml to the same compose directory as the compose.yml for the service for this to work.
+
+## Getting a SAS token
 
 For the SAS token, I got it by going to the `scnbackups` storage account, in the left pannel under `Security + networking` go to `Shared access signature` [link](https://portal.azure.com/#@seattlecommunitynetwork.onmicrosoft.com/resource/subscriptions/7f3f600b-c0c2-4c35-bf3a-e0b1cadfce71/resourceGroups/othello/providers/Microsoft.Storage/storageAccounts/scnbackups/sas). There you can create a shared access signature.
 - For `Allowed services` you only need to have `Blob` checked
