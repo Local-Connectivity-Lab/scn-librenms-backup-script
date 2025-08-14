@@ -50,11 +50,20 @@ send_message() {
 
 send_message "Backing up librenms to azure <@405064409396805632>..."
 
+cd /root/librenms_deployment3/compose
+docker compose down
 
-docker exec librenms_db mariadb-dump librenms -u librenms --password=$SQL_PASSWORD > /root/sqldump.sql
+docker compose -f backup_compose.yml up -d
+sleep 10s
+docker exec librenms_db_backup mariadb-dump librenms -u librenms --password=$SQL_PASSWORD > /root/sqldump.sql
+docker compose -f backup_compose.yml down
 
-cd /root/librenms_deployment3/compose/librenms/
+cd librenms/
 tar -cf /root/rrd.tar rrd
+
+cd /root/librenms_deployment3/compose
+docker compose up -d
+
 cd /root/
 zstd rrd.tar
 rm rrd.tar
